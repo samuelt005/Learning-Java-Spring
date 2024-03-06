@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <title>Calculadora</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="number"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        div {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9e9e9;
+        }
+
+        h2 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<h1>Calculadora</h1>
+<form th:action="@{/calcular}" method="post">
+    <input type="number" step="0.01" name="num1" required/>
+    <select name="operador" required>
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="number" step="0.01" name="num2" required/>
+    <button type="submit">Calcular</button>
+</form>
+<div th:if="${resultado != null}">
+    <h2>Result: <span th:text="${resultado}"></span></h2>
+</div>
+</body>
+</html>

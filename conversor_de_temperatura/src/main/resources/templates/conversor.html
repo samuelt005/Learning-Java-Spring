@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <title>Conversor de Temperatura</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .content-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .conversor {
+            background-color: #e7e7e7;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input[type="number"], select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        select {
+            margin-bottom: 20px;
+        }
+
+        button[type="submit"] {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            width: 100%;
+            height: 80px;
+            gap: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h2 {
+            margin: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="content-container">
+    <div class="conversor">
+        <h1>Conversor de Temperatura</h1>
+        <form th:action="@{/converter}" method="post">
+            <label for="temperatura">
+                Temperatura a converter:
+            </label>
+            <input type="number" step="0.01" name="temperatura" id="temperatura" required/>
+            <label for="tempOriginal">
+                Selecione a medida original:
+            </label>
+            <select name="tempOriginal" id="tempOriginal" required>
+                <option value="C">Celsius</option>
+                <option value="F">Fahrenheit</option>
+                <option value="K">Kelvin</option>
+            </select>
+            <label for="tempConvertida">
+                Converter para:
+            </label>
+            <select name="tempConvertida" id="tempConvertida" required>
+                <option value="C">Celsius</option>
+                <option value="F">Fahrenheit</option>
+                <option value="K">Kelvin</option>
+            </select>
+            <button type="submit">Converter</button>
+        </form>
+        <div class="resultado">
+            <h2 th:if="${original != null}">Valor para converter:
+                <span th:text="${original}" th:if="${original != null}"></span>
+                <span th:text="${temperaturaOriginal}" th:if="${temperaturaOriginal != null}"></span>
+            </h2>
+            <h2 th:if="${resultado != null}">Resultado:
+                <span th:text="${resultado}" th:if="${resultado != null}"></span>
+                <span th:text="${temperaturaResultado}" th:if="${temperaturaResultado != null}"></span>
+            </h2>
+        </div>
+    </div>
+</div>
+</body>
+</html>

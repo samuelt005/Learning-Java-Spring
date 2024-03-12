@@ -7,7 +7,15 @@
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+        }
+
+        .content-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
         h1 {
@@ -33,9 +41,12 @@
             cursor: pointer;
         }
 
-        div {
+        .result {
             margin-top: 20px;
-            padding: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background-color: #e9e9e9;
         }
 
@@ -45,20 +56,22 @@
     </style>
 </head>
 <body>
-<h1>Calculadora</h1>
-<form th:action="@{/calcular}" method="post">
-    <input type="number" step="0.01" name="num1" required/>
-    <select name="operador" required>
-        <option value="+">+</option>
-        <option value="-">-</option>
-        <option value="*">*</option>
-        <option value="/">/</option>
-    </select>
-    <input type="number" step="0.01" name="num2" required/>
-    <button type="submit">Calcular</button>
-</form>
-<div th:if="${resultado != null}">
-    <h2>Result: <span th:text="${resultado}"></span></h2>
+<div class="content-container">
+    <h1>Calculadora</h1>
+    <form th:action="@{/calcular}" method="post">
+        <input type="number" step="0.01" name="num1" required/>
+        <select name="operador" required>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="number" step="0.01" name="num2" required/>
+        <button type="submit">Calcular</button>
+    </form>
+    <div class="resultado" th:if="${resultado != null}">
+        <h2>Result: <span th:text="${resultado}"></span></h2>
+    </div>
 </div>
 </body>
 </html>

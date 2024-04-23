@@ -68,7 +68,9 @@ public class ReactiveWebFluxExampleApplication {
     // Utiliza métodos de transformação (map) em um Flux para manipular os dados de forma assíncrona.
     private Mono<ServerResponse> handleTransform(ServerRequest request) {
         Flux<Integer> numbers = Flux.range(1, 5);
-        Flux<Integer> squares = numbers.map(num -> num * num);
+        Flux<Integer> squares = numbers
+                .delayElements(Duration.ofSeconds(1))
+                .map(num -> num * num);
         return ok().contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(squares, Integer.class);
     }
@@ -77,8 +79,10 @@ public class ReactiveWebFluxExampleApplication {
     // Utiliza métodos de combinação (mergeWith) em Flux para combinar fluxos assíncronos em um único fluxo assíncrono.
     private Mono<ServerResponse> handleCombine(ServerRequest request) {
         Flux<Integer> evenNumbers = Flux.range(1, 5)
+                .delayElements(Duration.ofSeconds(1))
                 .filter(num -> num % 2 == 0);
         Flux<Integer> oddNumbers = Flux.range(1, 5)
+                .delayElements(Duration.ofSeconds(1))
                 .filter(num -> num % 2 != 0);
         Flux<Integer> combinedNumbers = evenNumbers.mergeWith(oddNumbers);
         return ok().contentType(MediaType.TEXT_EVENT_STREAM)
@@ -86,6 +90,6 @@ public class ReactiveWebFluxExampleApplication {
     }
 
     // Classe para representar um evento
-        record Event(long timestamp, String message) {
+    record Event(long timestamp, String message) {
     }
 }
